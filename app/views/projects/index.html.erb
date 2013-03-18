@@ -1,25 +1,21 @@
-<h1>Listing projects</h1>
+<h1>KO Tree Demonstration</h1>
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Project</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div data-bind-element='projects'>
+  <%= form_for(:project, html: { id: 'projects-form', 'data-bind' => 'submit: submitProject' }) do |f| %>
+  <div class='input-append'>
+    <%= f.text_field :name, placeholder: 'Enter an item', class: 'input input-xlarge', 'data-bind' => 'value: input, valueUpdate: "afterkeydown"' %>
+    <%= f.submit "Create", { class: 'btn btn-success', 'data-bind' => 'enable: input().length > 0' } %>
+  </div>
+  <% end %>
 
-<% @projects.each do |project| %>
-  <tr>
-    <td><%= project.name %></td>
-    <td><%= project.project_id %></td>
-    <td><%= link_to 'Show', project %></td>
-    <td><%= link_to 'Edit', edit_project_path(project) %></td>
-    <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+  <ul class="nav nav-list" data-bind="template: {name: 'projects_template', foreach: projects}">
+  </ul>
 
-<br />
-
-<%= link_to 'New Project', new_project_path %>
+  <script type='text/html' id='projects_template'>
+    <li data-bind="attr: {'data-id': $data.id, class: 'project-nav-li'}, droppable: $root">
+      <span href='#' data-bind='html: "<a href=\"#\">" + name() + "</a>"'></span><span class='pull-right project-delete' data-bind='click: $root.deleteProject'><i class='icon-trash'></i></span>
+    </li>
+    <ul class="nav nav-list" data-bind="template: {name: 'projects_template', foreach: projects}">
+    </ul>
+  </script>
+</div>
