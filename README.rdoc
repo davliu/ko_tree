@@ -11,6 +11,7 @@ knockout.mapping
 [{id: 1, name: item1, projects: [{id: 2, name: item2, projects: []}]}, {id: 3, name: item3, projects: []}]
 
 In Rails, you can check out my example on editing the json format in the projects model.
+
 def as_json(options = {})
   {
     id: id,
@@ -47,7 +48,6 @@ ko.bindingHandlers.droppable = {
 == View
 <ul class="nav nav-list" data-bind="template: {name: 'projects_template', foreach: projects}">
 </ul>
-
 <script type='text/html' id='projects_template'>
   <li data-bind="attr: {'data-id': $data.id, class: 'project-nav-li'}, droppable: $root">
     <span href='#' data-bind='html: "<a href=\"#\">" + name() + "</a>"'></span><span class='pull-right project-delete' data-bind='click: $root.deleteProject'><i class='icon-trash'></i></span>
