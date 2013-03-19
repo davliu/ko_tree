@@ -2,10 +2,10 @@
 kotree.herokuapp.com
 
 == Libraries Required
-jquery
-jquery-ui
-knockout
-knockout.mapping
+* jquery
+* jquery-ui
+* knockout
+* knockout.mapping
 
 == JSON Format
 [{id: 1, name: item1, projects: [{id: 2, name: item2, projects: []}]}, {id: 3, name: item3, projects: []}]
