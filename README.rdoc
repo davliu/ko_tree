@@ -8,7 +8,7 @@ kotree.herokuapp.com
 * knockout.mapping
 
 == JSON Format
-[{id: 1, name: item1, projects: [{id: 2, name: item2, projects: []}]}, {id: 3, name: item3, projects: []}]
+  [{id: 1, name: item1, projects: [{id: 2, name: item2, projects: []}]}, {id: 3, name: item3, projects: []}]
 
 In Rails, you can check out my example on editing the json format in the projects model.
 
