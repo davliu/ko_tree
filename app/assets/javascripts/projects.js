@@ -31,10 +31,13 @@ function ProjectViewModel() {
       $.ajax({
         url: 'projects.json',
         data: $('#projects-form').serialize(),
-        type: 'POST'
-      }).done(function(newProject) {
-        self.input("");
-        self.projects.push(ko.mapping.fromJS(newProject));
+        type: 'POST',
+        success: function(newProject) {
+          self.input("");
+          self.projects.push(ko.mapping.fromJS(newProject));
+        },
+        error: function(response) {
+        }
       });
     }
   };
@@ -52,9 +55,13 @@ function ProjectViewModel() {
           $.ajax({
             url: 'projects/' + dragged + '.json',
             type: 'PUT',
-            data: {'project': {'project_id': dropped}}
-          }).done(function() {
-            self.loadProjects();
+            data: {'project': {'project_id': dropped}},
+            success: function(data, status, response) {
+              self.loadProjects();
+            },
+            error: function(response) {
+              self.loadProjects();
+            }
           });
         }
       });
