@@ -1,5 +1,6 @@
-== Try it Now Here
-kotree.herokuapp.com
+== Description
+Create a tree view using Knockout. Tree is draggable/draggable and nodes can be deleted.
+Try it out here: kotree.herokuapp.com
 
 == Libraries Required
 * jquery
