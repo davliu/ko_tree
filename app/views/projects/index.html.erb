@@ -1,22 +1,43 @@
-<h1>KO Tree Demonstration</h1>
+<h1>KO and Angular Tree Demonstration</h1>
 <h4>Try and drag the items on top of each other!</h4>
 
-<div data-bind-element='projects'>
-  <%= form_for(:project, html: { id: 'projects-form', 'data-bind' => 'submit: submitProject' }) do |f| %>
-  <div class='input-append'>
-    <%= f.text_field :name, placeholder: 'Enter an item', class: 'input input-xlarge', 'data-bind' => 'value: input, valueUpdate: "afterkeydown"' %>
-    <%= f.submit "Create", { class: 'btn btn-success', 'data-bind' => 'enable: input().length > 0' } %>
-  </div>
-  <% end %>
+<div class='row-fluid'>
+  <div data-bind-element='projects' class='span6'>
+    <h2>KO</h2>
 
-  <ul class="nav nav-list" data-bind="template: {name: 'projects_template', foreach: projects}">
-  </ul>
+    <%= form_for(:project, html: { id: 'projects-form', 'data-bind' => 'submit: submitProject' }) do |f| %>
+    <div class='input-append'>
+      <%= f.text_field :name, placeholder: 'Enter an item', class: 'input input-xlarge', 'data-bind' => 'value: input, valueUpdate: "afterkeydown"' %>
+      <%= f.submit "Create", { class: 'btn btn-success', 'data-bind' => 'enable: input().length > 0' } %>
+    </div>
+    <% end %>
 
-  <script type='text/html' id='projects_template'>
-    <li data-bind="attr: {'data-id': $data.id, class: 'project-nav-li'}, droppable: $root">
-      <span href='#' data-bind='html: "<a href=\"#\">" + name() + "</a>"'></span><span class='pull-right project-delete' data-bind='click: $root.deleteProject'><i class='icon-trash'></i></span>
-    </li>
     <ul class="nav nav-list" data-bind="template: {name: 'projects_template', foreach: projects}">
     </ul>
-  </script>
+
+    <script type='text/html' id='projects_template'>
+      <li data-bind="attr: {'data-id': $data.id, class: 'project-nav-li'}, droppable: $root">
+        <span href='#' data-bind='html: "<a href=\"#\">" + name() + "</a>"'></span><span class='pull-right project-delete' data-bind='click: $root.deleteProject'><i class='icon-trash'></i></span>
+      </li>
+      <ul class="nav nav-list" data-bind="template: {name: 'projects_template', foreach: projects}">
+      </ul>
+    </script>
+  </div>
+
+  <div class='span6'>
+    <h2>Angular</h2>
+
+    <div ng-app>
+      <script type='text/ng-template' id='/treeItems.html'>
+        {{project.name}}
+        <ul class="nav nav-list">
+          <li ng-repeat='project in project.projects' ng-include src="'/treeItems.html'"></li>
+        </ul>
+      </script>
+
+      <ul ng-controller='ProjectsController' class="nav nav-list">
+        <li ng-repeat='project in projects' ng-include src="'/treeItems.html'"></li>
+      </ul>
+    </div>
+  </div>
 </div>
