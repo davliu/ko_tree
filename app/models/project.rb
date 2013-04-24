@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  attr_accessible :name, :project_id
+  attr_accessible :name, :project_id, :grouping
   has_many :projects
   has_one :project
   validate :parent_into_child

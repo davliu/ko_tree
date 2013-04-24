@@ -2,7 +2,8 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.find(:all, conditions: ['project_id is NULL'])
+    grouping = params[:grouping] == 'Angular' ? 'Angular' : 'Knockout'
+    @projects = Project.find(:all, conditions: ['project_id is null and grouping=?', grouping])
 
     respond_to do |format|
       format.html # index.html.erb

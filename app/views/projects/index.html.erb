@@ -8,6 +8,7 @@
     <%= form_for(:project, html: { id: 'projects-form', 'data-bind' => 'submit: submitProject' }) do |f| %>
     <div class='input-append'>
       <%= f.text_field :name, placeholder: 'Enter an item', class: 'input input-xlarge', 'data-bind' => 'value: input, valueUpdate: "afterkeydown"' %>
+      <%= f.hidden_field :grouping, value: 'Knockout' %>
       <%= f.submit "Create", { class: 'btn btn-success', 'data-bind' => 'enable: input().length > 0' } %>
     </div>
     <% end %>
@@ -28,16 +29,26 @@
     <h2>Angular</h2>
 
     <div ng-app>
-      <script type='text/ng-template' id='/treeItems.html'>
-        {{project.name}}
-        <ul class="nav nav-list">
-          <li ng-repeat='project in project.projects' ng-include src="'/treeItems.html'"></li>
-        </ul>
-      </script>
+      <div ng-controller="ProjectsController">
+        <%= form_for(:project, html: { id: 'angular-projects-form', 'ng-submit' => 'submitProject()'}) do |f| %>
+        <div class='input-append'>
+          <%= f.text_field :name, placeholder: 'Enter an item', class: 'input input-xlarge', 'ng-model' => 'projectText' %>
+          <%= f.hidden_field :grouping, value: 'Angular' %>
+          <%= f.submit "Create", { class: 'btn btn-success', 'ng-disabled' => 'projectText == null || projectText.length <= 0' } %>
+        </div>
+        <% end %>
 
-      <ul ng-controller='ProjectsController' class="nav nav-list">
-        <li ng-repeat='project in projects' ng-include src="'/treeItems.html'"></li>
-      </ul>
+        <script type='text/ng-template' id='/treeItems.html'>
+          <span>{{project.name}}</span><span class='pull-right project-delete' ng-click='deleteProject($index)'><i class='icon-trash'></i></span>
+          <ul class="nav nav-list">
+            <li ng-repeat='project in project.projects' ng-include src="'/treeItems.html'"></li>
+          </ul>
+        </script>
+
+        <ul class="nav nav-list">
+          <li ng-repeat='project in projects' ng-include src="'/treeItems.html'"></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

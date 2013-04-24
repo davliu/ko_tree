@@ -11,7 +11,8 @@ function ProjectViewModel() {
   self.loadProjects = function() {
     $.ajax({
       url: 'projects.json',
-      type: 'GET'
+      type: 'GET',
+      data: {grouping: 'Knockout'}
     }).done(function(data) {
       ko.mapping.fromJS(data, self.projects);
     });
