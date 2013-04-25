@@ -1,7 +1,7 @@
 'use strict';
 var TreeApp = angular.module('TreeApp', []);
 
-TreeApp.controller('ProjectsController', function ($scope, $http) {
+TreeApp.controller('ProjectsController', ['$scope', '$http', function ($scope, $http) {
   $scope.projects = [];
 
   $http.get('projects.json/?grouping=Angular').then(function(response) {
@@ -37,4 +37,4 @@ TreeApp.controller('ProjectsController', function ($scope, $http) {
       $scope.$apply();
     });
   };
-});
+}]);
