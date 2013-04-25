@@ -28,7 +28,7 @@
   <div class='span6'>
     <h2>Angular</h2>
 
-    <div ng-app>
+    <div ng-app="TreeApp">
       <div ng-controller="ProjectsController">
         <%= form_for(:project, html: { id: 'angular-projects-form', 'ng-submit' => 'submitProject()'}) do |f| %>
         <div class='input-append'>
