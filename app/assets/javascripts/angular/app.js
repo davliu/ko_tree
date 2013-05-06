@@ -1,6 +1,30 @@
 'use strict';
 var TreeApp = angular.module('TreeApp', []);
 
+TreeApp.directive('ngtree', function($compile) {
+  return {
+    restrict: 'E',
+    terminal: true,
+    scope: { val: '=', parentData:'=' },
+    link: function (scope, element, attrs) {
+      var template = '<span>{{val.name}}</span><button ng-click="deleteMe()" ng-show="val.name">delete</button>';
+      if (angular.isArray(scope.val.items)) {
+          template += '<ul class="indent"><li ng-repeat="project in val.projects"><tree val="project" parent-data="val.projects"></tree></li></ul>';
+      }
+      scope.deleteMe = function(index) {  
+        if(scope.parentData) {               
+            var itemIndex = scope.parentData.indexOf(scope.val);
+          scope.parentData.splice(itemIndex,1);                 
+        }
+        scope.val = {};                
+      };
+      var newElement = angular.element(template);
+      $compile(newElement)(scope);
+      element.replaceWith(newElement);            
+    }
+  };
+});
+
 TreeApp.controller('ProjectsController', ['$scope', '$http', function ($scope, $http) {
   $scope.projects = [];
 
