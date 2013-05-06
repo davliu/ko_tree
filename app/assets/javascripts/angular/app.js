@@ -24,6 +24,7 @@ TreeApp.directive('ngtree', function($compile) {
     }
   };
 });
+// Credits: http://stackoverflow.com/questions/14430655/recursion-in-angular-directives
 
 TreeApp.controller('ProjectsController', ['$scope', '$http', function ($scope, $http) {
   $scope.projects = [];
